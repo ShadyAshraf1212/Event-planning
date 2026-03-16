@@ -5,6 +5,8 @@ import 'package:event_planning/features/tabs/profile_tab/language_modal_bottom_s
 import 'package:event_planning/features/tabs/profile_tab/theme_modal_bottom_sheet.dart';
 import 'package:event_planning/features/widgets/custom_elevated_button.dart';
 import 'package:event_planning/providers/app_localization_provider.dart';
+import 'package:event_planning/providers/get_events_provider.dart';
+import 'package:event_planning/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -25,6 +27,8 @@ class _ProfileTabState extends State<ProfileTab> {
   Widget build(BuildContext context) {
     var appLanguageProvider = Provider.of<AppLocalizationProvider>(context);
     var appThemeProvider = Provider.of<AppThemeProvider>(context);
+    var userProvider = Provider.of<UserProvider>(context);
+    var getEventsProvider = Provider.of<GetEventsProvider>(context);
     return Scaffold(
       appBar: AppBar(
         shape: RoundedRectangleBorder(
@@ -43,9 +47,12 @@ class _ProfileTabState extends State<ProfileTab> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Shady Ashraf", style: AppStyles.bold24WhiteBg),
                   Text(
-                    "Shady@gmail.com",
+                    userProvider.currentUser!.name,
+                    style: AppStyles.bold24WhiteBg,
+                  ),
+                  Text(
+                    userProvider.currentUser!.email,
                     style: AppStyles.medium16WhiteBg,
                     maxLines: 2,
                   ),
@@ -132,6 +139,8 @@ class _ProfileTabState extends State<ProfileTab> {
             CustomElevatedButton(
               onPressed: () {
                 Navigator.pushReplacementNamed(context, RoutesManger.login);
+                getEventsProvider.filterEventsList = [];
+                getEventsProvider.favoriteEventsList = [];
               },
               elevatedButtonText: AppLocalizations.of(context)!.logout,
               backgroundColor: AppColors.red,
