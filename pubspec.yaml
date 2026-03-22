@@ -46,6 +46,8 @@ dependencies:
   firebase_core: ^4.4.0
   cloud_firestore: ^6.1.2
   fluttertoast: ^9.0.0
+  firebase_auth: ^6.2.0
+  google_sign_in: ^6.1.0
 
 dev_dependencies:
   flutter_test:
@@ -99,3 +101,7 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/evently_luncher_icon.png"
